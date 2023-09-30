@@ -24,4 +24,7 @@ urlpatterns = [
     path('hello', hello),
     path('hello/<s>', hello_re),
     path('hello_encode', hello_encode),
+    path('welcome/<s0>', welcome),
+    path('home/<s0>', home),
+    path('', movies, name='index')
 ]

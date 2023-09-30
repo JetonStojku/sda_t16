@@ -80,3 +80,26 @@ Export data:
 import data:
 
 `python manage.pyloaddata fixtures.json`
+
+
+##### ORM
+```python
+Movie.objects.filter(rating=8)
+horror = Genre.objects.get(name='Horror')
+Movie.objects.filter(genre=horror)
+Movie.objects.filter(genre__name='Horror')
+Movie.objects.filter(rating__gt=8)
+Movie.objects.filter(title__contains='Godfather') 
+Movie.objects.filter(title__icontains=’godfather’).filter(released__year__gt=1973)
+Movie.objects.filter(title='Avatar').exists()
+Movie.objects.filter(title__contains=’Godfather’).order_by('released')
+Movie.objects.filter(title__contains=’Godfather’).order_by('-released')
+Genre.objects.create(name='Documentary')# no access to the object before write
+genre =Genre(name='Comedy')
+genre.save()
+Movie.objects.filter(released__year=2000).update(rating=5)# sets movie ratings from year 2000 to 5
+pulp_fiction = Movie.objects.get(title='Pulp Fiction')
+pulp_fiction.rating =7
+pulp_fiction.save()
+Movie.objects.filter(title__contains='Godfather').delete()
+```
