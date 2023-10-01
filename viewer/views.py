@@ -34,10 +34,11 @@ def home(request, s0):
 
 
 def movies(request, genre=None):
+    rating = request.GET.get('rating', 0)
     if genre:
-        movie = Movie.objects.filter(genre__name=genre)
+        movie = Movie.objects.filter(genre__name=genre).filter(rating__gt=rating)
     else:
-        movie = Movie.objects.all()
+        movie = Movie.objects.filter(rating__gt=rating)
     return render(
         request, template_name='home.html',
         context={'movies': enumerate(movie, start=1)}
