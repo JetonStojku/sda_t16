@@ -33,8 +33,12 @@ def home(request, s0):
     )
 
 
-def movies(request):
+def movies(request, genre=None):
+    if genre:
+        movie = Movie.objects.filter(genre__name=genre)
+    else:
+        movie = Movie.objects.all()
     return render(
         request, template_name='home.html',
-        context={'movies': Movie.objects.all()}
+        context={'movies': enumerate(movie, start=1)}
     )
