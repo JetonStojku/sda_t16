@@ -28,4 +28,11 @@ urlpatterns = [
     path('home/<s0>', home),
     path('movies/', movies, name='index'),
     path('movies/<genre>', movies, name='index'),
+    path('class', MoviesView.as_view(), name='movie'),
+    path('template', MoviesTemplateView.as_view(), name='movie'),
+    path('list', MoviesListView.as_view(), name='movie'),
+    path('movie/create', MovieFormView.as_view(), name='movie_create'),
+    path('movie/create_form', MovieCreateView.as_view(), name='movie_create_form'),
+    path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
+    path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete'),
 ]
