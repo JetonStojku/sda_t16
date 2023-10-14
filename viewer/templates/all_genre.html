@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block content1 %}
-<ul>
-    {% for movie in movies %}
+<ol>
+    {% for genre in object_list %}
     <li>
-        {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }} | {{movie.description}}
+        {{ genre.name }}
     </li>
     {% endfor %}
-</ul>
+</ol>
 {% endblock %}

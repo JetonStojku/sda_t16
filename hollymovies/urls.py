@@ -31,6 +31,7 @@ urlpatterns = [
     path('class', MoviesView.as_view(), name='class'),
     path('template', MoviesTemplateView.as_view(), name='template'),
     path('list', MoviesListView.as_view(), name='list'),
+    path('genre', GenreListView.as_view(), name='genre'),
     path('movie/create', MovieFormView.as_view(), name='movie_create'),
     path('movie/create_form', MovieCreateView.as_view(), name='movie_create_form'),
     path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),

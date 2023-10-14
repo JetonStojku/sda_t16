@@ -48,7 +48,7 @@ class MovieForm(forms.Form):
         return result
 
 
-class MovieForm(forms.ModelForm):
+class MovieModelForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = '__all__'
