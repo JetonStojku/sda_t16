@@ -41,6 +41,7 @@
         <label for="{{ form.description.id_for_label }}">Description:</label>
         {{ form.description }}
     </div>
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input type="submit" value="Ok" class="btn btn-primary">
+    <a href="{% url 'list' %}" class="btn btn-light">Cancel</a>
 </form>
 {% endblock %}

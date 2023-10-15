@@ -2,11 +2,44 @@
 
 {% block content %}
 <h1>Welcome to HollyMovies!</h1>
-<ul>
-    {% for movie in object_list %}
-    <li>
-        {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}
-    </li>
-    {% endfor %}
-</ul>
+{% endblock %}
+
+{% block content1 %}
+<div>
+    <a class="btn btn-primary" href="{% url 'movie_create_form' %}">
+        Add Movie
+    </a>
+</div>
+<div>
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for movie in object_list %}
+        <tr>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.rating }}</td>
+            <td>{{ movie.genre }}</td>
+            <td>{{ movie.description }}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'movie_update' pk=movie.id %}">
+                    Edit Movie
+                </a>
+                <a class="btn btn-danger" href="{% url 'movie_delete' pk=movie.id %}">
+                    Delete Movie
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}

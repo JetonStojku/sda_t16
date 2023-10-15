@@ -101,7 +101,7 @@ class MovieFormView(FormView):
 class MovieCreateView(CreateView):
     template_name = 'new_form.html'
     form_class = MovieModelForm
-    success_url = reverse_lazy('movie_create_form')
+    success_url = reverse_lazy('list')
 
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data.')
@@ -112,7 +112,7 @@ class MovieUpdateView(UpdateView):
     template_name = 'new_form.html'
     model = Movie
     form_class = MovieModelForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('list')
 
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data while updating a movie.')
@@ -122,4 +122,4 @@ class MovieUpdateView(UpdateView):
 class MovieDeleteView(DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('list')
