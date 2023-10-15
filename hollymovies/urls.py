@@ -36,4 +36,7 @@ urlpatterns = [
     path('movie/create_form', MovieCreateView.as_view(), name='movie_create_form'),
     path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
     path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete'),
+    path('genre/create', GenreCreateView.as_view(), name='genre_create'),
+    path('genre/update/<pk>', GenreUpdateView.as_view(), name='genre_update'),
+    path('genre/delete/<pk>', GenreDeleteView.as_view(), name='genre_delete'),
 ]

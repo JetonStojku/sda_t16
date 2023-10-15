@@ -76,3 +76,16 @@ class MovieModelForm(forms.ModelForm):
                 "Commedies aren't so good to be rated over 5."
             )
         return result
+
+
+class GenreModelForm(forms.ModelForm):
+    class Meta:
+        model = Genre
+        fields = '__all__'
+
+    name = forms.CharField(validators=[capitalized_validator])
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'

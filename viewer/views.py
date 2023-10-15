@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 
-from viewer.forms import MovieForm, MovieModelForm
+from viewer.forms import MovieForm, MovieModelForm, GenreModelForm
 from viewer.models import Movie, Genre
 
 LOGGER = getLogger()
@@ -123,3 +123,22 @@ class MovieDeleteView(DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('list')
+
+
+class GenreCreateView(CreateView):
+    template_name = 'genre_form.html'
+    form_class = GenreModelForm
+    success_url = reverse_lazy('genre')
+
+
+class GenreUpdateView(UpdateView):
+    template_name = 'genre_form.html'
+    model = Genre
+    form_class = GenreModelForm
+    success_url = reverse_lazy('genre')
+
+
+class GenreDeleteView(DeleteView):
+    template_name = 'genre_confirm_delete.html'
+    model = Genre
+    success_url = reverse_lazy('genre')

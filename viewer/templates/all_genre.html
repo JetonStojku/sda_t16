@@ -5,11 +5,44 @@
 {% endblock %}
 
 {% block content1 %}
-<ol>
-    {% for genre in object_list %}
-    <li>
-        {{ genre.name }} ({{ genre.movie_set.count }})
-    </li>
-    {% endfor %}
-</ol>
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary" href="{% url 'genre_create' %}">
+            Add Genre
+        </a>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col">
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Movies</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for genre in object_list %}
+            <tr>
+                <td>{{ genre.name }}</td>
+                <td>{{ genre.movie_set.count }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{% url 'genre_update' pk=genre.id %}">
+                        Edit Genre
+                    </a>
+                    {% if genre.movie_set.count == 0 %}
+                    <a class="btn btn-danger" href="{% url 'genre_delete' pk=genre.id %}">
+                        Delete Genre
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {% endblock %}
