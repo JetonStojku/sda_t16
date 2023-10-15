@@ -8,7 +8,7 @@
 <ol>
     {% for genre in object_list %}
     <li>
-        {{ genre.name }}
+        {{ genre.name }} ({{ genre.movie_set.count }})
     </li>
     {% endfor %}
 </ol>

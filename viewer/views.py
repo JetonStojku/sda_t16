@@ -99,7 +99,7 @@ class MovieFormView(FormView):
 
 
 class MovieCreateView(CreateView):
-    template_name = 'form.html'
+    template_name = 'new_form.html'
     form_class = MovieModelForm
     success_url = reverse_lazy('movie_create_form')
 
@@ -109,9 +109,9 @@ class MovieCreateView(CreateView):
 
 
 class MovieUpdateView(UpdateView):
-    template_name = 'form.html'
+    template_name = 'new_form.html'
     model = Movie
-    form_class = MovieForm
+    form_class = MovieModelForm
     success_url = reverse_lazy('index')
 
     def form_invalid(self, form):
