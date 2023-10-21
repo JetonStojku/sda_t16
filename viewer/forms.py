@@ -2,9 +2,11 @@ import re
 from datetime import date
 
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from django.db.transaction import atomic
 
-from viewer.models import Genre, Movie
+from viewer.models import Genre, Movie, Profile
 
 
 def capitalized_validator(value):
@@ -89,3 +91,22 @@ class GenreModelForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
+
+class SignUpForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        fields = ['username', 'first_name']
+
+    biography = forms.CharField(
+        label='Tell us your story with movies', widget=forms.Textarea, min_length=40
+    )
+
+    @atomic
+    def save(self, commit=True):
+        self.instance.is_active = False
+        result = super().save(commit)
+        biography = self.cleaned_data['biography']
+        profile = Profile(biography=biography, user=result)
+        if commit:
+            profile.save()
+        return result

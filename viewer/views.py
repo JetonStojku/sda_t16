@@ -1,13 +1,17 @@
 from logging import getLogger
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 
-from viewer.forms import MovieForm, MovieModelForm, GenreModelForm
+from viewer.forms import MovieForm, MovieModelForm, GenreModelForm, SignUpForm
 from viewer.models import Movie, Genre
+from viewer.permissions import StaffRequiredMixin
 
 LOGGER = getLogger()
 
@@ -98,47 +102,85 @@ class MovieFormView(FormView):
         return super().form_invalid(form)
 
 
-class MovieCreateView(CreateView):
+class MovieCreateView(StaffRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'new_form.html'
     form_class = MovieModelForm
     success_url = reverse_lazy('list')
+    permission_required = 'viewer.create_movie'
 
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data.')
         return super().form_invalid(form)
 
 
-class MovieUpdateView(UpdateView):
+class MovieUpdateView(StaffRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'new_form.html'
     model = Movie
     form_class = MovieModelForm
     success_url = reverse_lazy('list')
+    permission_required = 'viewer.change_movie'
 
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data while updating a movie.')
         return super().form_invalid(form)
 
 
-class MovieDeleteView(DeleteView):
+class MovieDeleteView(StaffRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('list')
+    permission_required = 'viewer.delete_movie'
+
+    def test_func(self):
+        return super().test_func() and self.request.user.is_superuser
 
 
-class GenreCreateView(CreateView):
+class GenreCreateView(StaffRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'genre_form.html'
     form_class = GenreModelForm
     success_url = reverse_lazy('genre')
+    permission_required = 'viewer.create_genre'
 
 
-class GenreUpdateView(UpdateView):
+class GenreUpdateView(StaffRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'genre_form.html'
     model = Genre
     form_class = GenreModelForm
     success_url = reverse_lazy('genre')
+    permission_required = 'viewer.change_genre'
 
 
-class GenreDeleteView(DeleteView):
+class GenreDeleteView(StaffRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'genre_confirm_delete.html'
     model = Genre
     success_url = reverse_lazy('genre')
+    permission_required = 'viewer.delete_genre'
+
+
+class SubmittableLoginView(LoginView):
+    template_name = 'form.html'
+
+
+class SubmittablePasswordChangeView(PasswordChangeView):
+    template_name = 'form.html'
+    success_url = reverse_lazy('index')
+
+
+class SignUpView(CreateView):
+    template_name = 'signup.html'
+    form_class = SignUpForm
+    success_url = reverse_lazy('list')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        # Assign the user to the "Basic Permission" group
+        user = self.object
+        basic_permission_group = Group.objects.get(name='Basic Permission')
+        user.groups.add(basic_permission_group)
+
+        # Set the user as active
+        user.is_active = True
+        user.save()
+
+        return response

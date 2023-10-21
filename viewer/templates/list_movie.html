@@ -36,9 +36,11 @@
                     <a class="btn btn-primary" href="{% url 'movie_update' pk=movie.id %}">
                         Edit Movie
                     </a>
+                    {% if perms.viewer.delete_movie %}
                     <a class="btn btn-danger" href="{% url 'movie_delete' pk=movie.id %}">
                         Delete Movie
                     </a>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}
