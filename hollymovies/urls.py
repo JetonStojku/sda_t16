@@ -21,7 +21,7 @@ from django.urls import path
 from viewer.views import *
 
 urlpatterns = [
-    path('login/', SubmittableLoginView.as_view(), name='login'),
+    path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('password-change/', SubmittablePasswordChangeView.as_view(),
          name='password_change'),
