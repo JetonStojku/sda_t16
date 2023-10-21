@@ -7,9 +7,11 @@
 {% block content1 %}
 <div class="row">
     <div class="col">
+        {% if perms.viewer.create_genre %}
         <a class="btn btn-primary" href="{% url 'genre_create' %}">
             Add Genre
         </a>
+        {% endif %}
     </div>
 </div>
 <br/>
@@ -20,7 +22,9 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Movies</th>
+                {% if perms.viewer.change_genre or perms.viewer.delete_genre %}
                 <th scope="col">Action</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -28,16 +32,20 @@
             <tr>
                 <td>{{ genre.name }}</td>
                 <td>{{ genre.movie_set.count }}</td>
+                {% if perms.viewer.change_genre or perms.viewer.delete_genre %}
                 <td>
+                    {% if perms.viewer.change_genre %}
                     <a class="btn btn-primary" href="{% url 'genre_update' pk=genre.id %}">
                         Edit Genre
                     </a>
-                    {% if genre.movie_set.count == 0 %}
+                    {% endif %}
+                    {% if genre.movie_set.count == 0 and perms.viewer.delete_genre %}
                     <a class="btn btn-danger" href="{% url 'genre_delete' pk=genre.id %}">
                         Delete Genre
                     </a>
                     {% endif %}
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
             </tbody>

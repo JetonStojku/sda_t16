@@ -150,7 +150,7 @@ class GenreUpdateView(StaffRequiredMixin, LoginRequiredMixin, UpdateView):
     permission_required = 'viewer.change_genre'
 
 
-class GenreDeleteView(StaffRequiredMixin, LoginRequiredMixin, DeleteView):
+class GenreDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'genre_confirm_delete.html'
     model = Genre
     success_url = reverse_lazy('genre')
@@ -158,12 +158,12 @@ class GenreDeleteView(StaffRequiredMixin, LoginRequiredMixin, DeleteView):
 
 
 class SubmittableLoginView(LoginView):
-    template_name = 'form.html'
+    template_name = 'login.html'
 
 
 class SubmittablePasswordChangeView(PasswordChangeView):
     template_name = 'form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('list')
 
 
 class SignUpView(CreateView):
