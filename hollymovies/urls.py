@@ -38,7 +38,8 @@ urlpatterns = [
     path('movies/<genre>', movies, name='index'),
     path('class', MoviesView.as_view(), name='class'),
     path('template', MoviesTemplateView.as_view(), name='template'),
-    path('', MoviesListView.as_view(), name='list'),
+    path('/list', MoviesListView.as_view(), name='list'),
+    path('', MoviesCardView.as_view(), name='card'),
     path('movie/<pk>/', MoviesDetailView.as_view(), name='movie_detail'),
     path('genre', GenreListView.as_view(), name='genre'),
     path('movie/create', MovieFormView.as_view(), name='movie_create'),
@@ -48,5 +49,4 @@ urlpatterns = [
     path('genre/create', GenreCreateView.as_view(), name='genre_create'),
     path('genre/update/<pk>', GenreUpdateView.as_view(), name='genre_update'),
     path('genre/delete/<pk>', GenreDeleteView.as_view(), name='genre_delete'),
-    # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

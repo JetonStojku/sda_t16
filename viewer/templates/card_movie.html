@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to HollyMovies!</h1>
+{% endblock %}
+
+{% block content1 %}
+<div class="row">
+    <div class="col">
+        {% for movie in object_list %}
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="" alt="{{ movie.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+                <p class="card-text"> {{ movie.description }} </p>
+                <a href="{% url 'movie_detail' pk=movie.id %}" class="btn btn-primary">View movie</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

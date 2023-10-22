@@ -75,6 +75,11 @@ class MoviesListView(ListView):
     model = Movie
 
 
+class MoviesCardView(ListView):
+    template_name = 'card_movie.html'
+    model = Movie
+
+
 class MoviesDetailView(DetailView):
     template_name = 'detail_movie.html'
     model = Movie
