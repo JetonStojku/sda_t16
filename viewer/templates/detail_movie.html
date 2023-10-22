@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div>
+    <a class="btn btn-link" href="{% url 'card' %}">Back</a>
+</div>
 <h1>{{ object.title }}</h1>
 {% endblock %}
 

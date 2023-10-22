@@ -31,6 +31,7 @@
             {% for genre in object_list %}
             <tr>
                 <td>{{ genre.name }}</td>
+                <td>{{ genre.color }}</td>
                 <td>{{ genre.movie_set.count }}</td>
                 {% if perms.viewer.change_genre or perms.viewer.delete_genre %}
                 <td>

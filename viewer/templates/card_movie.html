@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block content1 %}
-<div class="row">
+<div class="card-columns">
     {% for movie in object_list %}
-    <div class="col">
-        <div class="card" style="width: 18rem;">
+    <a href="{% url 'movie_detail' pk=movie.id %}">
+        <div class="card border-light bg-light mb-3" style="width: 18rem;">
             <img class="card-img-top"
                  {% if movie.cover %}
                  src="{{ movie.cover.url }}"
@@ -19,11 +19,15 @@
             >
             <div class="card-body">
                 <h5 class="card-title">{{ movie.title }}</h5>
-                <p class="card-text"> {{ movie.description }} </p>
-                <a href="{% url 'movie_detail' pk=movie.id %}" class="btn btn-primary">View movie</a>
+                <p class="card-text">
+                    {{ movie.description }}
+                </p>
+            </div>
+            <div class="card-footer text-right">
+                <a href="{% url 'card' genre=movie.genre %}" class="badge {{ movie.genre.color }}">{{ movie.genre }}</a>
             </div>
         </div>
-    </div>
+    </a>
     {% endfor %}
 </div>
 

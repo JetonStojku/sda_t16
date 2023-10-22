@@ -40,6 +40,7 @@ urlpatterns = [
     path('template', MoviesTemplateView.as_view(), name='template'),
     path('list/', MoviesListView.as_view(), name='list'),
     path('', MoviesCardView.as_view(), name='card'),
+    path('category/<str:genre>', MoviesCardView.as_view(), name='card'),
     path('movie/<pk>/', MoviesDetailView.as_view(), name='movie_detail'),
     path('genre', GenreListView.as_view(), name='genre'),
     path('movie/create', MovieFormView.as_view(), name='movie_create'),

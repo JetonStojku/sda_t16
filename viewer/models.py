@@ -4,6 +4,18 @@ from django.db import models
 
 class Genre(models.Model):
     name = models.CharField(max_length=128)
+    color = models.CharField(max_length=40, choices=[
+        ("badge-primary", "Primary"),
+        ("badge-secondary", "Secondary"),
+        ("badge-success", "Success"),
+        ("badge-danger", "Danger"),
+        ("badge-warning", "Warning"),
+        ("badge-info", "Info"),
+        ("badge-light", "Light"),
+        ("badge-dark", "Dark"),
+    ],
+        default='badge-primary'
+    )
 
     def __str__(self):
         return self.name

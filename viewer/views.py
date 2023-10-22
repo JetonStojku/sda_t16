@@ -79,6 +79,13 @@ class MoviesCardView(ListView):
     template_name = 'card_movie.html'
     model = Movie
 
+    def get_queryset(self):
+        genre = self.kwargs.get('genre')
+        queryset = super().get_queryset()
+        if genre:
+            return queryset.filter(genre__name=genre)
+        return queryset
+
 
 class MoviesDetailView(DetailView):
     template_name = 'detail_movie.html'
