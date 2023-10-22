@@ -17,7 +17,7 @@ class Movie(models.Model):
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     trailer = models.URLField(blank=True)
-    cover = models.ImageField(upload_to='media', blank=True)
+    cover = models.ImageField(upload_to='movie_cover', blank=True, null=True)
 
     def __str__(self):
         return self.title

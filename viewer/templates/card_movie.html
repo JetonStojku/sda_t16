@@ -6,18 +6,25 @@
 
 {% block content1 %}
 <div class="row">
+    {% for movie in object_list %}
     <div class="col">
-        {% for movie in object_list %}
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="" alt="{{ movie.title }}">
+            <img class="card-img-top"
+                 {% if movie.cover %}
+                 src="{{ movie.cover.url }}"
+                 {% else %}
+                 src=""
+                 {% endif %}
+                 alt="{{ movie.title }}"
+            >
             <div class="card-body">
                 <h5 class="card-title">{{ movie.title }}</h5>
                 <p class="card-text"> {{ movie.description }} </p>
                 <a href="{% url 'movie_detail' pk=movie.id %}" class="btn btn-primary">View movie</a>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
 </div>
 
 {% endblock %}
