@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, FormView, DetailView, CreateView, UpdateView, DeleteView
 
 from viewer.forms import MovieForm, MovieModelForm, GenreModelForm, SignUpForm
 from viewer.models import Movie, Genre
@@ -72,6 +72,11 @@ class MoviesTemplateView(TemplateView):
 
 class MoviesListView(ListView):
     template_name = 'list_movie.html'
+    model = Movie
+
+
+class MoviesDetailView(DetailView):
+    template_name = 'detail_movie.html'
     model = Movie
 
 

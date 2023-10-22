@@ -14,10 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.urls import path
 
+from hollymovies import settings
 from viewer.views import *
 
 urlpatterns = [
@@ -37,6 +39,7 @@ urlpatterns = [
     path('class', MoviesView.as_view(), name='class'),
     path('template', MoviesTemplateView.as_view(), name='template'),
     path('', MoviesListView.as_view(), name='list'),
+    path('movie/<pk>/', MoviesDetailView.as_view(), name='movie_detail'),
     path('genre', GenreListView.as_view(), name='genre'),
     path('movie/create', MovieFormView.as_view(), name='movie_create'),
     path('movie/create_form', MovieCreateView.as_view(), name='movie_create_form'),
@@ -45,4 +48,5 @@ urlpatterns = [
     path('genre/create', GenreCreateView.as_view(), name='genre_create'),
     path('genre/update/<pk>', GenreUpdateView.as_view(), name='genre_update'),
     path('genre/delete/<pk>', GenreDeleteView.as_view(), name='genre_delete'),
+    # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]

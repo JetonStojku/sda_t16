@@ -16,6 +16,7 @@ class Movie(models.Model):
     released = models.DateField()
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+    trailer = models.URLField(blank=True)
 
     def __str__(self):
         return self.title

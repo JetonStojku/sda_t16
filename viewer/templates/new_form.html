@@ -8,10 +8,21 @@
 <form method="post">
     {% csrf_token %}
     {{ form.non_field_errors }}
-    <div class="form-group">
-        {{ form.title.errors }}
-        <label for="{{ form.title.id_for_label }}">Title:</label>
-        {{ form.title }}
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                {{ form.title.errors }}
+                <label for="{{ form.title.id_for_label }}">Title:</label>
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                {{ form.trailer.errors }}
+                <label for="{{ form.trailer.id_for_label }}">Trailer:</label>
+                {{ form.trailer }}
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col">

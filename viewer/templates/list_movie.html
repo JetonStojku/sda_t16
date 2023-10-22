@@ -24,6 +24,7 @@
                 <th scope="col">Rating</th>
                 <th scope="col">Genre</th>
                 <th scope="col">Description</th>
+                <th scope="col">Trailer</th>
                 {% if perms.viewer.change_movie or perms.viewer.delete_movie %}
                 <th scope="col">Action</th>
                 {% endif %}
@@ -36,6 +37,11 @@
                 <td>{{ movie.rating }}</td>
                 <td>{{ movie.genre }}</td>
                 <td>{{ movie.description }}</td>
+                <td>
+                    <a class="btn btn-success" href="{% url 'movie_detail' pk=movie.id %}">
+                        View Trailer
+                    </a>
+                </td>
                 {% if perms.viewer.change_movie or perms.viewer.delete_movie %}
                 <td>
                     {% if perms.viewer.change_movie %}
